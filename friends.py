@@ -14,36 +14,26 @@ lbl.grid(column=1,row=0,sticky = "nsew",columnspan=5)
 
 win.title("My Friends Gallery")
 win.geometry("1300x700")
-frame1 = tkinter.Frame(win, padx=5, pady=(5),bg="light sky blue")
-frame1.grid(row=2, column=1,columnspan=6, pady=(10,10),padx=(10,10))
+
 frame2 = tkinter.Frame(win, padx=5, pady=(5),bg="light sky blue")
 frame2.grid(row=2, column=1,columnspan=6, pady=(10,10),padx=(10,10))
 labellist = []
 labell = []
 def ExitWindow():
     win.destroy()
-def showImage(event):
-    list1 = os.listdir("images")
-    if len(list1) !=0:
-        image_show = random.choice(list1)
-        image_s = Image.open('images/'+ image_show)
-        photo_s = ImageTk.PhotoImage(image_s)
-        label_s = tkinter.Label(frame2, image=photo_s, text = image_show,compound='top', borderwidth=5 ,relief="ridge")
-        label_s.image = photo_s
-        label_s.grid(row=2,column=5,padx=(10, 10),pady = (10,10))
-        labell.append(label_s)
-        
+
     
     
 def ShowGallery():
-
+    global frame1
+    frame1 = tkinter.Frame(win, padx=5, pady=(5),bg="light sky blue")
+    frame1.grid(row=2, column=1,columnspan=6, pady=(10,10),padx=(10,10))
     list1 = os.listdir("images")
-    print(list1)
     row_default = 2
     column_default = 1
     for element in list1:
     
-        print(column_default)
+
         key = list1.index(element)
         image = Image.open('images/'+ element)
         photo = ImageTk.PhotoImage(image)
@@ -59,9 +49,20 @@ def ShowGallery():
         if check == 0:
             row_default += 2
             column_default = 1
-    print(labellist)
+        win.update_idletasks()
+ 
     
-
+def showImage(event):
+    list1 = os.listdir("images")
+    if len(list1) !=0:
+        image_show = random.choice(list1)
+        image_s = Image.open('images/'+ image_show)
+        photo_s = ImageTk.PhotoImage(image_s)
+        label_s = tkinter.Label(frame2, image=photo_s, text = image_show,compound='top', borderwidth=5 ,relief="ridge")
+        label_s.image = photo_s
+        label_s.grid(row=2,column=5,padx=(10, 10),pady = (10,10))
+        labell.append(label_s)
+        frame1.grid_forget()
         
             
 def AddFriend():
@@ -110,6 +111,7 @@ def DeleteFriend():
             )
         if answer1:
             os.remove(filename)
+            win.update_idletasks()
             for label in labellist:
                 lab_text = label.cget("text")
                 if lab_text in filename:
@@ -130,6 +132,7 @@ def ClearGallery():
             lab_text = label.cget("text")
             if lab_text in item:
                 label.grid_forget()
+    win.update_idletasks()
     ShowGallery()
    
 
