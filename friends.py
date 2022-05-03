@@ -37,7 +37,7 @@ def ShowGallery():
         key = list1.index(element)
         image = Image.open('images/'+ element)
         photo = ImageTk.PhotoImage(image)
-        label = tkinter.Label(frame1, image=photo, text = element,compound='top', borderwidth=5 ,relief="ridge")
+        label = tkinter.Label(frame1, image=photo, text = element,compound='top', borderwidth=5,width=200,height = 300 ,relief="ridge")
         label.image = photo
         label.grid(row=row_default,column=column_default,padx=(10, 10),pady = (10,10))
         labelname= str(label.grid(row=row_default,column=column_default,padx=(10, 10),pady = (10,10)))
